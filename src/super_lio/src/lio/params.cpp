@@ -52,15 +52,10 @@ namespace LI2Sup{
   bool g_kf_align_gravity = true;
   double g_kf_quit_eps;
 
-  /// submap 
-  double g_submap_resolution;
-  int    g_submap_capacity;
-
   /// output
   bool g_2_robot    = false;
   bool g_2_plan_env_world = false; 
   bool g_2_plan_env_body  = false;
-  bool g_2_ml_map = false;
   bool g_visual_map = true;
   bool g_visual_dense = false;
   int  g_pub_step;

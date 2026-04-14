@@ -68,16 +68,11 @@ namespace LI2Sup{
   extern int g_kf_max_iterations;
   extern bool g_kf_align_gravity;
   extern double g_kf_quit_eps;
-
-  /// submaps
-  extern double g_submap_resolution;
-  extern int    g_submap_capacity;
   
   /// output  
   extern bool g_2_robot;
   extern bool g_2_plan_env_world;
   extern bool g_2_plan_env_body;
-  extern bool g_2_ml_map;
   extern bool g_visual_map;
   extern bool g_visual_dense;
   extern int  g_pub_step;

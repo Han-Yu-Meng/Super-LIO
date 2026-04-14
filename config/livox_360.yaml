@@ -1,0 +1,49 @@
+super_lio:
+  map:
+    if_filter: true
+    ds_size: 0.25
+
+  frame:
+    odom_frame: "odom"
+    robot_frame: "base_link"
+    lidar_frame: "base_lidar"
+
+  sensor:
+    lidar_type: 1
+    blind: 2.0
+    maxrange: 60.0
+    filter_rate: 3
+    enable_downsample: true
+    voxel_fliter_size: 0.5
+    gravity_norm: 9.7946
+    imu_type: 1
+    imu_na: 0.1
+    imu_ng: 0.1
+    imu_nba: 0.0001
+    imu_nbg: 0.0001
+
+  extrinsic:
+    lidar_imu: [-0.011, -0.02329, 0.04412, 
+                            1.0, 0.0, 0.0, 
+                            0.0, 1.0, 0.0, 
+                            0.0, 0.0, 1.0]
+    odom_robo: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+  hash_map:
+    hash_capacity: 2000000
+    vox_resolution: 0.5
+
+  kf:
+    kf_type: 0
+    kf_max_iterations: 4
+    kf_align_gravity: true
+    kf_quit_eps: 0.001
+
+  output:
+    robot: false
+    plan_env_world: false
+    plan_env_body: false
+    planner: false
+    map: true
+    dense: true
+    pub_step: 1

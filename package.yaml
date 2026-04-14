@@ -1,0 +1,31 @@
+name: "super_lio"
+version: "0.1.0"
+description: "Super-LIO: A Robust and Efficient LiDAR-Inertial Odometry System with a Compact Mapping Strategy"
+maintainers:
+  - name: "Ji Zhang"
+    email: "zhangji@cmu.edu"
+  - name: "fins"
+    email: "fins@sjtu.edu.cn"
+depends:
+  Eigen3: "3.4.0"
+  Sophus: "1.22.4"
+  OpenMP: "system"
+  
+  geometry_msgs: "system"
+  nav_msgs: "system"
+  sensor_msgs: "system"
+  livox_msg: "1.0.1"
+
+  PCL: "system"
+  pcl_conversions: "system"
+
+recipes:
+  livox_msg:
+    git: "https://github.com/Han-Yu-Meng/livox_msg.git"
+    build_system: "cmake"
+    versions:
+      "1.0.1":
+        tag: "v1.0.1"
+
+licenses:
+  - "GPL-3.0-only"
