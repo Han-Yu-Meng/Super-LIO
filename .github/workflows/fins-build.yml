@@ -63,15 +63,7 @@ jobs:
           echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/80-retries
           
           apt update -o Acquire::ForceIPv4=true --fix-missing
-          apt install -y curl git sudo jq ninja-build software-properties-common bc wget python3-yaml ccache
-
-      - name: ccache storage
-        uses: actions/cache@v4
-        with:
-          path: /github/home/.ccache
-          key: ${{ runner.os }}-${{ matrix.os }}-${{ matrix.arch }}-ccache-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.os }}-${{ matrix.arch }}-ccache-
+          apt install -y curl git sudo jq ninja-build software-properties-common bc wget python3-yaml
 
       - name: Extract Package Name
         id: pkg_info
@@ -118,11 +110,7 @@ jobs:
         run: |
           source /opt/ros/${{ matrix.distro }}/setup.bash
           set -e
-          export PATH="/usr/lib/ccache:$PATH"
-          export CCACHE_DIR=/github/home/.ccache
-          ccache -s
           fins build ${{ steps.pkg_info.outputs.PACKAGE_NAME }}
-          ccache -s
           mkdir -p /github/home/artifacts
           find /github/home/.fins/install/ -maxdepth 1 ! -path /github/home/.fins/install/ ! -name "lib" ! -name "agent" ! -name "libfins_shared*" -exec cp -r {} /github/home/artifacts/ \;
 
