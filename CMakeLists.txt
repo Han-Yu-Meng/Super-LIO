@@ -13,7 +13,7 @@ find_package(nav_msgs REQUIRED)
 find_package(livox_msg REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
 find_package(PCL REQUIRED)
-find_package(Glog REQUIRED)
+find_package(glog REQUIRED)
 
 file(GLOB_RECURSE BASIC_SRC "src/basic/src/*.cpp")
 add_library(basic SHARED ${BASIC_SRC})
@@ -48,6 +48,11 @@ fins_link_ros_dependencies(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-  basic Eigen3::Eigen ${PCL_LIBRARIES} glog::glog pthread
+  basic
+  Eigen3::Eigen
+  ${PCL_LIBRARIES}
+  glog::glog
+  gflags
+  pthread
   livox_msg::livox_msg
 )
