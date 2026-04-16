@@ -10,7 +10,6 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
-find_package(pcl_ros REQUIRED)
 find_package(livox_msg REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
 find_package(PCL REQUIRED)
@@ -45,7 +44,6 @@ fins_link_ros_dependencies(${PROJECT_NAME}
   geometry_msgs
   sensor_msgs
   nav_msgs
-  pcl_ros
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
