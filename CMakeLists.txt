@@ -23,8 +23,9 @@ target_include_directories(basic PUBLIC
 target_link_libraries(basic PUBLIC
   Eigen3::Eigen
   ${PCL_LIBRARIES}
-  glog
+  glog::glog
   pthread
+  gflags
 )
 
 file(GLOB_RECURSE LIO_LIB_SRC "src/super_lio/src/lio/*.cpp" "src/super_lio/src/ros/*.cpp")
