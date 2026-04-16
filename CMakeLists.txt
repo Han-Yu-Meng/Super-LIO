@@ -44,9 +44,10 @@ fins_link_ros_dependencies(${PROJECT_NAME}
   geometry_msgs
   sensor_msgs
   nav_msgs
+  pcl_conversions
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-  basic Eigen3::Eigen ${PCL_LIBRARIES} glog pthread
+  basic Eigen3::Eigen ${PCL_LIBRARIES} glog::glog pthread
   livox_msg::livox_msg
 )
