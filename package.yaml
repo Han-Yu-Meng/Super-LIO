@@ -12,6 +12,7 @@ depends:
   OpenMP: "system"
   glog: "0.6.0"
   gflags: "system"
+  tbb: "system"
   
   geometry_msgs: "system"
   nav_msgs: "system"

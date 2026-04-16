@@ -9,7 +9,9 @@
 #include <memory>
 #include <cstring>
 #include <iostream>
+#if __has_include(<execution>)
 #include <execution>
+#endif
 #include <filesystem>
 #include <unordered_map>
 #include <unordered_set>

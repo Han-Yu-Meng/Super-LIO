@@ -14,6 +14,7 @@ find_package(livox_msg REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
 find_package(PCL REQUIRED)
 find_package(glog REQUIRED)
+find_package(TBB)
 
 file(GLOB_RECURSE BASIC_SRC "src/basic/src/*.cpp")
 add_library(basic SHARED ${BASIC_SRC})
@@ -27,6 +28,10 @@ target_link_libraries(basic PUBLIC
   pthread
   gflags
 )
+
+if(TBB_FOUND)
+  target_link_libraries(basic PUBLIC TBB::tbb)
+endif()
 
 file(GLOB_RECURSE LIO_LIB_SRC "src/super_lio/src/lio/*.cpp" "src/super_lio/src/ros/*.cpp")
 

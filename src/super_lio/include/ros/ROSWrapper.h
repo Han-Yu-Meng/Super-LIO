@@ -6,7 +6,9 @@
 #include <tuple>
 #include <deque>
 #include <vector>
+#if __has_include(<execution>)
 #include <execution>
+#endif
 
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>

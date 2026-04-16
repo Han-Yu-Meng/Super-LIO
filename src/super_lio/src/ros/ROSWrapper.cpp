@@ -89,7 +89,11 @@ void livox2pcl(const livox_driver2::msg::CustomMsg::SharedPtr& msg, CloudPtr& po
   std::vector<bool> is_valid_pt(plsize, false);
   std::vector<std::size_t> index(plsize - 1);
   std::iota(std::begin(index), std::end(index), 1);
-  std::for_each(std::execution::par_unseq, index.begin(), index.end(), [&](const uint &i) {
+#if defined(__cpp_lib_execution) || (defined(__cplusplus) && __cplusplus >= 201603L && __has_include(<execution>))
+  std::for_each(std::execution::par_unseq, index.begin(), index.end(), [&](const std::size_t &i) {
+#else
+  std::for_each(index.begin(), index.end(), [&](const std::size_t &i) {
+#endif
     if((msg->points[i].tag & 0x30) == 0x10 || (msg->points[i].tag & 0x30) == 0x00) {
       cloud_full->at(i).x = msg->points[i].x;
       cloud_full->at(i).y = msg->points[i].y;
