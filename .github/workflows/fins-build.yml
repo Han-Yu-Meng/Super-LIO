@@ -109,7 +109,9 @@ jobs:
 
       - name: Install Fins-CLI
         run: |
-          curl -fsSL https://raw.githubusercontent.com/Han-Yu-Meng/fins-cli/main/install.sh | sudo bash || true
+          for i in {1..5}; do
+            curl -fsSL --connect-timeout 5 --retry 3 https://raw.githubusercontent.com/Han-Yu-Meng/fins-cli/main/install.sh | sudo bash && break || sleep 5
+          done
           mkdir -p /github/home/.fins
           cp -r /root/.fins/* /github/home/.fins/ || true
 
