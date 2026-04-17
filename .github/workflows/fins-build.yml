@@ -61,6 +61,10 @@ jobs:
             fi
           fi
           
+          # 移除容器默认的 apt 清理脚本，并强制保留下载的 .deb 包
+          rm -f /etc/apt/apt.conf.d/docker-clean || true
+          echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/01keep-debs
+          
           echo 'Acquire::Retries "3";' > /etc/apt/apt.conf.d/80-retries
           echo 'Acquire::http::Timeout "10";' >> /etc/apt/apt.conf.d/80-retries
           echo 'Acquire::ForceIPv4 "true";' >> /etc/apt/apt.conf.d/80-retries
@@ -73,6 +77,14 @@ jobs:
         run: |
           PKG_NAME=$(python3 -c "import yaml; print(yaml.safe_load(open('package.yaml'))['name'])")
           echo "PACKAGE_NAME=$PKG_NAME" >> $GITHUB_OUTPUT
+
+      - name: Cache APT Archives
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          key: apt-cache-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('**/package.yaml') }}
+          restore-keys: |
+            apt-cache-${{ matrix.os }}-${{ matrix.arch }}-
 
       - name: Cache Fins-SDK
         id: cache-fins-sdk
