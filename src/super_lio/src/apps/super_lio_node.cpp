@@ -47,9 +47,9 @@ public:
 
   ~SuperLIONode() { deinitialize(); }
 
-  void run() override {} // 重点关注：必须定义 run 方法，可以为空
-  void pause() override {} // 重点关注：必须定义 pause 方法，可以为空
-  void reset() override {} // 重点关注：必须定义 reset方法，可以为空
+  void run() override {}
+  void pause() override {}
+  void reset() override {}
 
   void on_imu(const fins::Msg<sensor_msgs::msg::Imu>& msg) { 
     data_wrapper_->imuHandler(msg);
