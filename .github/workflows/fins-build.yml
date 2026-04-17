@@ -61,10 +61,12 @@ jobs:
             fi
           fi
           
-          echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/80-retries
+          echo 'Acquire::Retries "3";' > /etc/apt/apt.conf.d/80-retries
+          echo 'Acquire::http::Timeout "10";' >> /etc/apt/apt.conf.d/80-retries
+          echo 'Acquire::ForceIPv4 "true";' >> /etc/apt/apt.conf.d/80-retries
           
           apt update -o Acquire::ForceIPv4=true --fix-missing
-          apt install -y curl git sudo jq ninja-build software-properties-common bc wget python3-yaml zip
+          apt install -y --no-install-recommends curl git sudo jq ninja-build software-properties-common bc wget python3-yaml zip
 
       - name: Extract Package Name
         id: pkg_info
