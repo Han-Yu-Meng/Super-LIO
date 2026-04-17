@@ -106,6 +106,14 @@ jobs:
           path: /github/home/FineVision
           key: fins-sdk-v2-${{ matrix.os }}-${{ matrix.arch }}
 
+      - name: Cache Fins Dependencies
+        uses: actions/cache@v4
+        with:
+          path: /github/home/.fins/dependencies
+          key: fins-deps-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('package.yaml') }}
+          restore-keys: |
+            fins-deps-${{ matrix.os }}-${{ matrix.arch }}-
+
       - name: Install Fins-SDK
         if: steps.cache-fins-sdk.outputs.cache-hit != 'true'
         run: |
