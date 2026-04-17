@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.arch == 'arm64' && 'ubuntu-22.04-arm' || 'ubuntu-22.04' }}
-    timeout-minutes: 10
+    timeout-minutes: 15
     
     strategy:
       fail-fast: false
@@ -61,7 +61,6 @@ jobs:
             fi
           fi
           
-          # 移除容器默认的 apt 清理脚本，并强制保留下载的 .deb 包
           rm -f /etc/apt/apt.conf.d/docker-clean || true
           echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/01keep-debs
           
@@ -81,7 +80,7 @@ jobs:
       - name: Cache APT Archives
         uses: actions/cache@v4
         with:
-          path: /var/cache/apt/archives
+          path: apt-cache
           key: apt-cache-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('**/package.yaml') }}
           restore-keys: |
             apt-cache-${{ matrix.os }}-${{ matrix.arch }}-
@@ -114,6 +113,12 @@ jobs:
       - name: Solve Dependencies
         run: |
           source /opt/ros/${{ matrix.distro }}/setup.bash
+          
+          # 建立软链接，让系统的 apt 直接使用工作目录下的缓存
+          mkdir -p apt-cache
+          sudo rm -rf /var/cache/apt/archives
+          sudo ln -s $(pwd)/apt-cache /var/cache/apt/archives
+          
           sudo fins dep solve ${{ steps.pkg_info.outputs.PACKAGE_NAME }}
           
           pkill finsd || true
@@ -175,7 +180,6 @@ jobs:
           body: |
             Automated build for commit ${{ github.sha }}
             Build results from GHA CI/CD.
-            *Note: This release may be a partial success. Some platforms might have failed or timed out.*
           files: final-release/*
           draft: false
           prerelease: false
