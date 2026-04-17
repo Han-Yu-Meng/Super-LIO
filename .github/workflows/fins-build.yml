@@ -35,6 +35,10 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Fix Permissions for Cache
+        run: |
+          sudo chown -R $(id -u):$(id -g) .
+
       - name: Check for package.yaml
         run: |
           if [ ! -f "package.yaml" ]; then
@@ -91,7 +95,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: apt-cache
-          key: apt-cache-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('**/package.yaml') }}
+          key: apt-cache-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('package.yaml') }}
           restore-keys: |
             apt-cache-${{ matrix.os }}-${{ matrix.arch }}-
 
