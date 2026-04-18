@@ -1,3 +1,5 @@
+Default config: [config/livox_360.yaml](config/livox_360.yaml)
+
 <div align="center">
   <h1>⚡Super-LIO</h1>
   <h2>Super-LIO: A Robust and Efficient LiDAR-Inertial Odometry System with a Compact Mapping Strategy</h2>
