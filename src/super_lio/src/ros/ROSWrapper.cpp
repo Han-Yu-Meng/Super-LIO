@@ -5,7 +5,6 @@
 #include <nav_msgs/msg/path.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <pcl_conversions/pcl_conversions.h>
-#include <fins/agent/parameter_server.hpp>
 
 using namespace BASIC;
 

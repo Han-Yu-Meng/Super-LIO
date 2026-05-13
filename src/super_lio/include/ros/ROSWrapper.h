@@ -25,7 +25,6 @@
 #include <pcl_conversions/pcl_conversions.h>
 
 #include <fins/node.hpp>
-#include <fins/agent/parameter_server.hpp>
 #include "lio/params.h"
 #include "basic/alias.h"
 #include "basic/logs.h"
